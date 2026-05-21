@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 
+const base = import.meta.env.BASE_URL;
+
 const Hero = () => {
   const text = "MERN Full Stack Developer";
-
   const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
@@ -11,7 +12,6 @@ const Hero = () => {
     const interval = setInterval(() => {
       setDisplayedText(text.slice(0, i));
       i++;
-
       if (i > text.length) clearInterval(interval);
     }, 100);
 
@@ -21,11 +21,7 @@ const Hero = () => {
   return (
     <section id="home" className="hero">
 
-      <img
-        src="/images/myPhoto.jpeg"
-        className="profile"
-        alt="profile"
-      />
+      <img src={`${base}images/myPhoto.jpeg`} alt="profile"  className="profile"/>
 
       <h1 className="hero-title">
         Hi, I'm <span>Farmaan 👋</span>
@@ -40,11 +36,9 @@ const Hero = () => {
         I build scalable, fast and responsive web applications using modern MERN stack technologies.
       </p>
 
-      <a href="/resume/resume.pdf" download className="btn">
+      <a href={`${base}resume/resume.pdf`} download className="btn">
         ⬇ Download Resume
       </a>
-
-
 
     </section>
   );
