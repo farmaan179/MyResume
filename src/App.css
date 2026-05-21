@@ -1,4 +1,5 @@
 /* ================= RESET ================= */
+
 * {
   margin: 0;
   padding: 0;
@@ -15,6 +16,7 @@ body {
 }
 
 /* ================= THEME ================= */
+
 .dark {
   background: linear-gradient(135deg, #0f172a, #111827);
   color: white;
@@ -27,20 +29,14 @@ body {
   min-height: 100vh;
 }
 
-/* ================= GLOBAL SECTION ================= */
-section {
-  width: 100%;
-  padding: 80px 20px;
-  text-align: center;
-}
-
 /* ================= NAVBAR ================= */
+
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  padding: 15px 30px;
+  padding: 15px 20px;
   position: fixed;
   top: 0;
   width: 100%;
@@ -51,8 +47,9 @@ section {
 }
 
 .logo {
-  color: #38bdf8;
+  font-size: 20px;
   font-weight: bold;
+  color: #38bdf8;
 }
 
 .links {
@@ -63,6 +60,8 @@ section {
 .links a {
   text-decoration: none;
   color: inherit;
+  font-weight: 500;
+  transition: 0.3s;
 }
 
 .links a:hover {
@@ -70,30 +69,36 @@ section {
 }
 
 .toggle {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
   background: #2563eb;
   color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
+  cursor: pointer;
 }
 
 .burger {
   display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #38bdf8;
 }
 
 /* ================= HERO ================= */
+
 .hero {
-  padding-top: 120px;
+  text-align: center;
+  padding: 140px 20px 80px;
 }
 
 .profile {
-  width: 140px;
-  height: 140px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
-  border: 4px solid #38bdf8;
   object-fit: cover;
-  margin: auto;
-  display: block;
+  border: 4px solid #38bdf8;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 }
 
 .hero-title {
@@ -105,27 +110,65 @@ section {
 }
 
 .hero-subtitle {
+  font-size: 1.5rem;
   color: #38bdf8;
 }
 
-/* ================= ABOUT ================= */
-.about-text {
-  max-width: 700px;
-  margin: auto;
-  padding: 25px;
-  border-radius: 15px;
-
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(10px);
-
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+.hero-text {
+  max-width: 600px;
+  margin: 20px auto;
+  opacity: 0.85;
 }
 
-.dark .about-text {
-  background: linear-gradient(145deg, #1e293b, #0f172a);
+/* ================= BUTTON ================= */
+
+.btn {
+  padding: 12px 22px;
+  background: linear-gradient(135deg, #2563eb, #38bdf8);
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+/* ================= SECTION BASE ================= */
+
+.section {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+/* ================= ABOUT ================= */
+
+.about-text {
+  max-width: 750px;
+  margin: 20px auto;
+  padding: 30px;
+
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(15px);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+  transition: 0.3s;
+}
+
+.about-text:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(56, 189, 248, 0.25);
 }
 
 /* ================= SKILLS ================= */
+
 .skills {
   display: flex;
   flex-wrap: wrap;
@@ -134,17 +177,20 @@ section {
 }
 
 .skills span {
-  padding: 10px 14px;
+  padding: 10px 16px;
   background: #1e293b;
   border-radius: 10px;
+  transition: 0.3s;
 }
 
 .skills span:hover {
   background: #38bdf8;
   color: black;
+  transform: translateY(-5px);
 }
 
 /* ================= PROJECTS ================= */
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -154,50 +200,67 @@ section {
 }
 
 .card {
-  padding: 20px;
-  border-radius: 15px;
+  padding: 25px;
+  border-radius: 18px;
 
-  background: rgba(255,255,255,0.06);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(15px);
 
-  cursor: pointer;
+  color: white;
+  font-weight: 500;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(56, 189, 248, 0.25);
+  box-shadow: 0 25px 60px rgba(56, 189, 248, 0.25);
 }
 
 /* ================= CONTACT ================= */
 .contact-section {
   text-align: center;
+  padding: 80px 20px;
 }
-
 .contact-section .title {
+  font-size: 32px;
+  margin-bottom: 25px;
   color: #38bdf8;
-  margin-bottom: 20px;
+  text-align: center;
 }
-
 .contact-card {
   max-width: 500px;
   margin: auto;
-  padding: 30px;
+  padding: 40px;
+  border-radius: 20px;
 
-  border-radius: 15px;
-  background: rgba(255,255,255,0.06);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(15px);
 
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+
+  transition: 0.3s;
+}
+
+.contact-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 60px rgba(56, 189, 248, 0.25);
 }
 
 .contact-card input,
 .contact-card textarea {
   width: 100%;
   margin: 10px 0;
-  padding: 12px;
-
-  border-radius: 8px;
+  padding: 14px;
   border: none;
+  border-radius: 10px;
 
   background: #1e293b;
   color: white;
@@ -205,30 +268,67 @@ section {
 
 .contact-card button {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   border: none;
+  border-radius: 10px;
 
   background: linear-gradient(135deg, #2563eb, #38bdf8);
   color: white;
 
-  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.contact-card button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 30px rgba(56, 189, 248, 0.4);
+}
+.card {
+  padding: 25px;
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(15px);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  color: white;
+  font-weight: 500;
+  line-height: 1.6;
+  text-align: left;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 /* ================= MOBILE ================= */
+
 @media (max-width: 768px) {
-  .links {
-    display: none;
-  }
-
-  .burger {
-    display: block;
-  }
-
   .hero-title {
     font-size: 22px;
   }
 
   .hero-subtitle {
     font-size: 16px;
+  }
+
+  .hero-text {
+    font-size: 14px;
+  }
+
+  .skills span {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .links {
+    display: none;
+  }
+
+  .burger {
+    display: block;
   }
 }
