@@ -20,31 +20,33 @@ const Contact = () => {
     setSuccess(false);
 
     try {
-  const response = await fetch("http://localhost:5000/api/contact", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(form)
-  });
+      const API_URL = "https://vercel-backend-byj1.onrender.com";
 
-  const data = await response.json();
+      const response = await fetch(`${API_URL}/api/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(form)
+      });
 
-  if (data.success) {
-    setSuccess(true);
-    setForm({
-      name: "",
-      email: "",
-      message: ""
-    });
-  } else {
-    alert("Email failed ❌");
-  }
+      const data = await response.json();
 
-} catch (err) {
-  console.log(err);
-  alert("Something went wrong ❌");
-}
+      if (data.success) {
+        setSuccess(true);
+        setForm({
+          name: "",
+          email: "",
+          message: ""
+        });
+      } else {
+        alert("Email failed ❌");
+      }
+
+    } catch (err) {
+      console.log(err);
+      alert("Something went wrong ❌");
+    }
 
     setLoading(false);
   };
@@ -82,7 +84,7 @@ const Contact = () => {
             value={form.message}
             onChange={handleChange}
             required
-          ></textarea>
+          />
 
           <button type="submit" disabled={loading}>
             {loading ? "Sending..." : "Send Message 🚀"}
