@@ -22,7 +22,8 @@ const Contact = () => {
     setError("");
 
     try {
-      const API_URL = "https://vercel-backend-byj1.onrender.com";
+      // ✅ ENV USE HERE
+      const API_URL = import.meta.env.VITE_API_URL;
 
       const response = await fetch(`${API_URL}/api/contact`, {
         method: "POST",
