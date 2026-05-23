@@ -32,13 +32,13 @@ const Contact = () => {
         body: JSON.stringify(form)
       });
 
-      const data = await response.json().catch(() => null);
+      const data = await response.json();
 
-      if (response.ok && data?.success) {
+      if (response.ok && data && data.success) {
         setSuccess(true);
         setForm({ name: "", email: "", message: "" });
       } else {
-        setError(data?.message || "Failed to send message");
+        setError((data && data.message) || "Failed to send message");
       }
 
     } catch (err) {
