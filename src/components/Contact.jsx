@@ -30,9 +30,20 @@ const Contact = () => {
         body: JSON.stringify(form)
       });
 
-      const data = await response.json();
+      let data;
 
-      if (data.success) {
+      try {
+        data = await response.json();
+      } catch (err) {
+        console.log("Invalid JSON response");
+        alert("Server error ❌");
+        setLoading(false);
+        return;
+      }
+
+      console.log("API RESPONSE:", data);
+
+      if (response.ok && data.success) {
         setSuccess(true);
         setForm({
           name: "",
@@ -40,7 +51,7 @@ const Contact = () => {
           message: ""
         });
       } else {
-        alert("Email failed ❌");
+        alert(data.message || "Email failed ❌");
       }
 
     } catch (err) {
