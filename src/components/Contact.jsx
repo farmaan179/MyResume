@@ -22,8 +22,15 @@ const Contact = () => {
     setError("");
 
     try {
-      // ✅ ENV USE HERE
-      const API_URL = import.meta.env.VITE_API_URL;
+      // ENV CHECK SAFE
+      let API_URL = import.meta.env.VITE_API_URL;
+
+      if (!API_URL) {
+        throw new Error("API URL not defined in .env");
+      }
+
+      // REMOVE trailing slash issue
+      API_URL = API_URL.replace(/\/$/, "");
 
       const response = await fetch(`${API_URL}/api/contact`, {
         method: "POST",
@@ -33,17 +40,26 @@ const Contact = () => {
         body: JSON.stringify(form)
       });
 
-      const data = await response.json();
+      let data = {};
+      try {
+        data = await response.json();
+      } catch {
+        data = {};
+      }
 
-      if (response.ok && data && data.success) {
+      console.log("STATUS:", response.status);
+      console.log("DATA:", data);
+
+      if (response.ok) {
         setSuccess(true);
         setForm({ name: "", email: "", message: "" });
       } else {
-        setError((data && data.message) || "Failed to send message");
+        setError(data.message || "Failed to send message");
       }
 
     } catch (err) {
-      setError("Network error");
+      console.error(err);
+      setError(err.message || "Network error");
     } finally {
       setLoading(false);
     }
