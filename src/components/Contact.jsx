@@ -9,6 +9,7 @@ const Contact = () => {
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,6 +19,7 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
     setSuccess(false);
+    setError("");
 
     try {
       const API_URL = "https://vercel-backend-byj1.onrender.com";
@@ -30,47 +32,28 @@ const Contact = () => {
         body: JSON.stringify(form)
       });
 
-      let data;
+      const data = await response.json().catch(() => null);
 
-      try {
-        data = await response.json();
-      } catch (err) {
-        console.log("Invalid JSON response");
-        alert("Server error ❌");
-        setLoading(false);
-        return;
-      }
-
-      console.log("API RESPONSE:", data);
-
-      if (response.ok && data.success) {
+      if (response.ok && data?.success) {
         setSuccess(true);
-        setForm({
-          name: "",
-          email: "",
-          message: ""
-        });
+        setForm({ name: "", email: "", message: "" });
       } else {
-        alert(data.message || "Email failed ❌");
+        setError(data?.message || "Failed to send message");
       }
 
     } catch (err) {
-      console.log(err);
-      alert("Something went wrong ❌");
+      setError("Network error");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
     <section id="contact" className="contact-section">
-
       <h2 className="title">Get In Touch</h2>
 
       <div className="contact-card">
-
         <form onSubmit={send}>
-
           <input
             type="text"
             name="name"
@@ -100,7 +83,6 @@ const Contact = () => {
           <button type="submit" disabled={loading}>
             {loading ? "Sending..." : "Send Message 🚀"}
           </button>
-
         </form>
 
         {success && (
@@ -109,8 +91,12 @@ const Contact = () => {
           </p>
         )}
 
+        {error && (
+          <p style={{ color: "red", marginTop: "10px" }}>
+            {error}
+          </p>
+        )}
       </div>
-
     </section>
   );
 };
