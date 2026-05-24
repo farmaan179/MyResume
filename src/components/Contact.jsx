@@ -12,27 +12,27 @@ const Contact = () => {
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
   };
 
   const send = async (e) => {
     e.preventDefault();
+
     setLoading(true);
     setSuccess(false);
     setError("");
 
     try {
-      // ENV CHECK SAFE
-      let API_URL = import.meta.env.VITE_API_URL;
+      const API_URL = import.meta.env.VITE_API_URL;
 
       if (!API_URL) {
-        throw new Error("API URL not defined in .env");
+        throw new Error("Something went wrong");
       }
 
-      // REMOVE trailing slash issue
-      API_URL = API_URL.replace(/\/$/, "");
-
-      const response = await fetch(`${API_URL}/api/contact`, {
+      const res = await fetch(`${API_URL}/api/contact`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -40,26 +40,27 @@ const Contact = () => {
         body: JSON.stringify(form)
       });
 
+      // SAFE JSON PARSE (prevents crash)
       let data = {};
       try {
-        data = await response.json();
+        data = await res.json();
       } catch {
         data = {};
       }
 
-      console.log("STATUS:", response.status);
-      console.log("DATA:", data);
-
-      if (response.ok) {
-        setSuccess(true);
-        setForm({ name: "", email: "", message: "" });
-      } else {
-        setError(data.message || "Failed to send message");
+      if (!res.ok) {
+        throw new Error(data.message || "Something went wrong");
       }
 
+      setSuccess(true);
+      setForm({ name: "", email: "", message: "" });
+
     } catch (err) {
-      console.error(err);
-      setError(err.message || "Network error");
+      console.error("CONTACT ERROR:", err);
+
+      // user friendly message only
+      setError("Something went wrong");
+
     } finally {
       setLoading(false);
     }
@@ -71,6 +72,7 @@ const Contact = () => {
 
       <div className="contact-card">
         <form onSubmit={send}>
+
           <input
             type="text"
             name="name"
@@ -100,10 +102,11 @@ const Contact = () => {
           <button type="submit" disabled={loading}>
             {loading ? "Sending..." : "Send Message 🚀"}
           </button>
+
         </form>
 
         {success && (
-          <p style={{ color: "#38bdf8", marginTop: "10px" }}>
+          <p style={{ color: "lightgreen", marginTop: "10px" }}>
             Message sent successfully ✅
           </p>
         )}
