@@ -4,7 +4,7 @@ const Contact = () => {
   const [form, setForm] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -14,7 +14,7 @@ const Contact = () => {
   const handleChange = (e) => {
     setForm((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -35,10 +35,13 @@ const Contact = () => {
       const res = await fetch(`${API_URL}/api/contact`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(form)
+        body: JSON.stringify(form),
       });
+
+      console.log("RESPONSE:", res);
+      console.log("STATUS:", res.status);
 
       // SAFE JSON PARSE (prevents crash)
       let data = {};
@@ -54,13 +57,11 @@ const Contact = () => {
 
       setSuccess(true);
       setForm({ name: "", email: "", message: "" });
-
     } catch (err) {
       console.error("CONTACT ERROR:", err);
 
       // user friendly message only
       setError("Something went wrong");
-
     } finally {
       setLoading(false);
     }
@@ -72,7 +73,6 @@ const Contact = () => {
 
       <div className="contact-card">
         <form onSubmit={send}>
-
           <input
             type="text"
             name="name"
@@ -102,7 +102,6 @@ const Contact = () => {
           <button type="submit" disabled={loading}>
             {loading ? "Sending..." : "Send Message 🚀"}
           </button>
-
         </form>
 
         {success && (
@@ -111,11 +110,7 @@ const Contact = () => {
           </p>
         )}
 
-        {error && (
-          <p style={{ color: "red", marginTop: "10px" }}>
-            {error}
-          </p>
-        )}
+        {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
       </div>
     </section>
   );
