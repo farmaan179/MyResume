@@ -7,7 +7,7 @@ const Projects = () => {
       <div className="grid">
 
         <div className="card">E-commerce Platform</div>
-        <div className="card">Chat Application</div>
+        <div className="card">Employee Management System | Full Stack Web Application</div>
         <div className="card">Portfolio System</div>
 
       </div>

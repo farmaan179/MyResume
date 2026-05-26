@@ -65,6 +65,15 @@ html {
   transition: 0.3s ease;
 }
 
+/* ADD THIS BELOW
+.nav,
+.nav a,
+.logo,
+.burger,
+.toggle {
+  color: white !important;
+} */
+
 .nav:hover {
   background: rgba(15, 23, 42, 0.8);
 }
